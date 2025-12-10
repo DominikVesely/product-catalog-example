@@ -68,15 +68,10 @@ public class ProductsController : ApiController
         return Ok(product);
     }
 
-    [HttpPut]
+    [HttpPatch]
     [Route("{id:guid}/description")]
-    public ActionResult UpdateDescription(Guid id, [FromBody][Required] UpdateProductDescriptionRequest request)
+    public ActionResult<ProductDto> UpdateDescription(Guid id, [FromBody][Required] UpdateProductDescriptionRequest request)
     {
-        if (request is null)
-        {
-            return BadRequest("Request body is required.");
-        }
-
         ProductDto? product = _products.FirstOrDefault(p => p.Id == id);
         if (product is null)
         {
@@ -84,7 +79,7 @@ public class ProductsController : ApiController
         }
 
         product.Description = request.Description;
-        return NoContent();
+        return Ok(product);
     }
 
 
