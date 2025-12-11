@@ -1,4 +1,5 @@
 using Asp.Versioning.ApiExplorer;
+using Data.Configuration;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -20,6 +21,8 @@ builder.Services.AddApiVersioning(options =>
     options.SubstituteApiVersionInUrl = true;
 });
 
+builder.Services.AddDataLayer(builder.Configuration);
+
 var app = builder.Build();
 
 app.UseSwagger();
@@ -40,5 +43,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+await app.Services.ApplySeedDataAsync();
 
 app.Run();
