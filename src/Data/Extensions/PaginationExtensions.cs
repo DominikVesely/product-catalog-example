@@ -1,4 +1,4 @@
-﻿using Business.Dto;
+﻿using Data.Dto;
 using Microsoft.EntityFrameworkCore;
 
 namespace Business.Extensions;

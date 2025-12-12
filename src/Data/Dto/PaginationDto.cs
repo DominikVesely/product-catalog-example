@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Business.Dto;
+namespace Data.Dto;
 
 public sealed class PaginationDto
 {

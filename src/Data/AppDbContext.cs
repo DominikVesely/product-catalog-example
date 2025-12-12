@@ -1,3 +1,4 @@
+using Data.Configuration.Entities;
 using Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,11 +18,6 @@ internal sealed class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        modelBuilder.Entity<Product>(entity =>
-        {
-            entity.HasKey(p => p.Id);
-            entity.Property(p => p.Price).HasColumnType("money");
-        });
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductConfiguration).Assembly);
     }
 }

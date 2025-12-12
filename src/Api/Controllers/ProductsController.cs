@@ -2,7 +2,8 @@
 using Api.Controllers.Base;
 using Asp.Versioning;
 using Business.Dto;
-using Business.Extensions;
+using Business.Services;
+using Data.Dto;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
@@ -11,6 +12,13 @@ namespace Api.Controllers;
 [ApiVersion(1.0)]
 public class ProductsController : ApiController
 {
+    private readonly IProductService _productService;
+
+    public ProductsController(IProductService productService)
+    {
+        _productService = productService ?? throw new ArgumentNullException(nameof(productService));
+    }
+
     // In-memory sample product store for demo purposes.
     private static readonly List<ProductDto> _products = new List<ProductDto>
     {
@@ -42,24 +50,26 @@ public class ProductsController : ApiController
 
     // v1: return all available products (no pagination)
     [HttpGet]
-    public ActionResult<List<ProductDto>> GetAllV1()
+    public async Task<ActionResult<List<ProductDto>>> GetAllV1()
     {
-        List<ProductDto> result = _products;
-        return Ok(result);
+        List<ProductDto> data = await _productService.GetAll(HttpContext.RequestAborted);
+        return Ok(data);
     }
 
     [HttpGet]
     [ApiVersion(2.0)]
-    public ActionResult<List<ProductDto>> GetAllV2([FromQuery][Required] PaginationDto pagination)
+    public async Task<ActionResult<List<ProductDto>>> GetAllV2([FromQuery][Required] PaginationDto pagination)
     {
-        return Ok(_products.ApplyPagination(pagination));
+        var data = await _productService.GetAll(pagination, HttpContext.RequestAborted);
+        return Ok(data);
     }
 
     [HttpGet]
     [Route("{id:guid}")]
-    public ActionResult<ProductDto> GetById(Guid id)
+    public async Task<ActionResult<ProductDto>> GetById(Guid id, CancellationToken cancellationToken)
     {
-        ProductDto? product = _products.FirstOrDefault(p => p.Id == id);
+        ProductDto? product = await _productService.GetById(id, cancellationToken);
+
         if (product is null)
         {
             return NotFound();
@@ -70,15 +80,10 @@ public class ProductsController : ApiController
 
     [HttpPatch]
     [Route("{id:guid}/description")]
-    public ActionResult<ProductDto> UpdateDescription(Guid id, [FromBody][Required] UpdateProductDescriptionRequest request)
+    public async Task<ActionResult<ProductDto>> UpdateDescription(Guid id, [FromBody][Required] UpdateProductDescriptionRequest request)
     {
-        ProductDto? product = _products.FirstOrDefault(p => p.Id == id);
-        if (product is null)
-        {
-            return NotFound();
-        }
+        var product = await _productService.UpdateDescription(id, request.Description, HttpContext.RequestAborted);
 
-        product.Description = request.Description;
         return Ok(product);
     }
 

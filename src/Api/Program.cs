@@ -1,4 +1,5 @@
 using Asp.Versioning.ApiExplorer;
+using Business.Configuration;
 using Data.Configuration;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -22,6 +23,7 @@ builder.Services.AddApiVersioning(options =>
 });
 
 builder.Services.AddDataLayer(builder.Configuration);
+builder.Services.AddBusinessLayer();
 
 var app = builder.Build();
 

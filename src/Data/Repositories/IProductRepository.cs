@@ -1,13 +1,15 @@
-﻿using Data.Entities;
+﻿using Data.Dto;
+using Data.Entities;
 
 namespace Data.Repositories;
 
-internal interface IProductRepository
+public interface IProductRepository
 {
-    Task<List<Product>> GetAllAsync(CancellationToken cancellationToken = default);
+    Task<List<Product>> GetAll(CancellationToken cancellationToken);
+    Task<List<Product>> GetAll(PaginationDto pagination, CancellationToken cancellationToken);
 
-    Task<Product?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<Product?> GetById(Guid id, CancellationToken cancellationToken);
 
-    Task UpdateAsync(Product product, CancellationToken cancellationToken = default);
+    Task Update(Product product, CancellationToken cancellationToken);
 
 }
