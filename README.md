@@ -1,6 +1,17 @@
 # Product Catalog API
 This RESTful API provides the complete toolkit for managing and retrieving your product catalog data.
 
+## AppSettings
+
+To switch between mock data and real database.
+```json
+{
+    "MockData": {
+        "Enabled": true
+    }
+}
+```
+
 ## Startup
 **All commands are calling in the root of the project!**
 
