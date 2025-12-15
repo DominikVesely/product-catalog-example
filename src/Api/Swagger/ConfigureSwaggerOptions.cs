@@ -22,15 +22,5 @@ internal sealed class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOpti
 
             options.SwaggerDoc(description.GroupName, info);
         }
-
-        //options.DocInclusionPredicate((docName, apiDesc) =>
-        //{
-        //    if (apiDesc.GroupName is null)
-        //    {
-        //        return false;
-        //    }
-
-        //    return string.Equals(apiDesc.GroupName, docName, StringComparison.OrdinalIgnoreCase);
-        //});
     }
 }
