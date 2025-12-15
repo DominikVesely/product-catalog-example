@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories;
 
-internal sealed class ProductRepository : IProductRepository
+public sealed class ProductRepositoryEF : IProductRepository
 {
     private readonly AppDbContext _db;
 
-    public ProductRepository(AppDbContext db) => _db = db ?? throw new ArgumentNullException(nameof(db));
+    public ProductRepositoryEF(AppDbContext db) => _db = db ?? throw new ArgumentNullException(nameof(db));
 
     public Task<List<Product>> GetAll(CancellationToken cancellationToken) => _db.Products.AsNoTracking().ToListAsync(cancellationToken);
 

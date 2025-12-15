@@ -11,20 +11,23 @@ public static class DataConfiguration
 {
     public static IServiceCollection AddDataLayer(this IServiceCollection services, IConfiguration configuration)
     {
-        // database
-        services.AddDbContext<AppDbContext>(options =>
-        {
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
-
-            options.UseSqlServer(connectionString, x => x.MigrationsAssembly("Data"));
-        });
+        var mockDataOptions = configuration.GetSection(MockDataOptions.SectionName)
+            .Get<MockDataOptions>() ?? new MockDataOptions();
 
         // repositories
-        services.AddScoped<IProductRepository, ProductRepository>();
+        if (mockDataOptions.Enabled)
+        {
+            services.AddScoped<IProductRepository, ProductRepositoryJson>();
+        }
+        else
+        {
+            RegisterDbContext(services, configuration);
+            services.AddScoped<IProductRepository, ProductRepositoryEF>();
+        }
 
-        // seed
-        services.AddScoped<ISeeder, ProductSeedData>();
+        // seeds
         services.AddScoped<DbSeeder>();
+        services.AddScoped<ISeeder, ProductSeedData>();
 
         return services;
     }
@@ -41,4 +44,16 @@ public static class DataConfiguration
             await seeder.SeedAllAsync(db, scope.ServiceProvider);
         }
     }
+
+    private static void RegisterDbContext(IServiceCollection services, IConfiguration configuration)
+    {
+        // database
+        services.AddDbContext<AppDbContext>(options =>
+        {
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+            options.UseSqlServer(connectionString, x => x.MigrationsAssembly("Data"));
+        });
+    }
+
 }

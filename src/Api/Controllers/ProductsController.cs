@@ -19,35 +19,6 @@ public class ProductsController : ApiController
         _productService = productService ?? throw new ArgumentNullException(nameof(productService));
     }
 
-    // In-memory sample product store for demo purposes.
-    private static readonly List<ProductDto> _products = new List<ProductDto>
-    {
-        new()
-        {
-            Id = Guid.Parse("11111111-1111-1111-1111-111111111111"),
-            Name = "USB-C Charger",
-            ImgUri = "https://example.com/imgs/charger.jpg",
-            Price = 19.99m,
-            Description = "Fast 30W USB-C charger."
-        },
-        new()
-        {
-            Id = Guid.Parse("22222222-2222-2222-2222-222222222222"),
-            Name = "Wireless Mouse",
-            ImgUri = "https://example.com/imgs/mouse.jpg",
-            Price = 29.50m,
-            Description = "Ergonomic wireless mouse with long battery life."
-        },
-        new()
-        {
-            Id = Guid.Parse("33333333-3333-3333-3333-333333333333"),
-            Name = "Mechanical Keyboard",
-            ImgUri = "https://example.com/imgs/keyboard.jpg",
-            Price = 89.00m,
-            Description = "Compact mechanical keyboard with RGB."
-        }
-    };
-
     // v1: return all available products (no pagination)
     [HttpGet]
     public async Task<ActionResult<List<ProductDto>>> GetAllV1()

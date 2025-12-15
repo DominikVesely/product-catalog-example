@@ -1,0 +1,142 @@
+[
+  {
+    "Id": "00000000-0000-0000-0000-000000000001",
+    "Name": "Product01",
+    "ImgUri": "https://example.com/imgs/charger1.jpg",
+    "Price": 19.9900,
+    "Description": "Fast 30W USB-C charger."
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000002",
+    "Name": "Product02",
+    "ImgUri": "https://example.com/imgs/mouse2.jpg",
+    "Price": 29.5000,
+    "Description": "Ergonomic wireless mouse."
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000003",
+    "Name": "Product03",
+    "ImgUri": "https://example.com/imgs/keyboard3.jpg",
+    "Price": 89.0000,
+    "Description": "Compact mechanical keyboard."
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000004",
+    "Name": "Product04",
+    "ImgUri": "https://example.com/imgs/speaker4.jpg",
+    "Price": 45.0000,
+    "Description": "Portable bluetooth speaker."
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000005",
+    "Name": "Product05",
+    "ImgUri": "https://example.com/imgs/webcam5.jpg",
+    "Price": 59.9900,
+    "Description": "1080p webcam."
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000006",
+    "Name": "Product06",
+    "ImgUri": "https://example.com/imgs/headphones6.jpg",
+    "Price": 129.9900,
+    "Description": "Over-ear noise cancelling."
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000007",
+    "Name": "Product07",
+    "ImgUri": "https://example.com/imgs/ssd7.jpg",
+    "Price": 119.0000,
+    "Description": "Fast external SSD."
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000008",
+    "Name": "Product08",
+    "ImgUri": "https://example.com/imgs/stand8.jpg",
+    "Price": 34.9900,
+    "Description": "Aluminium laptop stand."
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000009",
+    "Name": "Product09",
+    "ImgUri": "https://example.com/imgs/hub9.jpg",
+    "Price": 24.5000,
+    "Description": "4-port USB hub."
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000010",
+    "Name": "Product10",
+    "ImgUri": "https://example.com/imgs/watch10.jpg",
+    "Price": 199.9900,
+    "Description": "Fitness smartwatch."
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000011",
+    "Name": "Product11",
+    "ImgUri": "https://example.com/imgs/earbuds11.jpg",
+    "Price": 79.9900,
+    "Description": "True wireless earbuds."
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000012",
+    "Name": "Product12",
+    "ImgUri": "https://example.com/imgs/monitor12.jpg",
+    "Price": 229.0000,
+    "Description": "15.6\" portable monitor."
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000013",
+    "Name": "Product13",
+    "ImgUri": "https://example.com/imgs/mousepad13.jpg",
+    "Price": 19.0000,
+    "Description": "Large cloth mousepad."
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000014",
+    "Name": "Product14",
+    "ImgUri": "https://example.com/imgs/hdmi14.jpg",
+    "Price": 9.9900,
+    "Description": "High-speed HDMI cable."
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000015",
+    "Name": "Product15",
+    "ImgUri": "https://example.com/imgs/router15.jpg",
+    "Price": 69.9900,
+    "Description": "Dual-band router."
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000016",
+    "Name": "Product16",
+    "ImgUri": "https://example.com/imgs/keyboard16.jpg",
+    "Price": 49.9900,
+    "Description": "Slim wireless keyboard."
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000017",
+    "Name": "Product17",
+    "ImgUri": "https://example.com/imgs/powerbank17.jpg",
+    "Price": 39.9900,
+    "Description": "20000mAh power bank."
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000018",
+    "Name": "Product18",
+    "ImgUri": "https://example.com/imgs/case18.jpg",
+    "Price": 14.9900,
+    "Description": "Protective tablet case."
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000019",
+    "Name": "Product19",
+    "ImgUri": "https://example.com/imgs/sdcard19.jpg",
+    "Price": 24.9900,
+    "Description": "High-speed SD card."
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000020",
+    "Name": "Product20",
+    "ImgUri": "https://example.com/imgs/projector20.jpg",
+    "Price": 299.0000,
+    "Description": "Portable HD projector."
+  }
+]

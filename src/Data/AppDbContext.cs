@@ -4,16 +4,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data;
 
-internal sealed class AppDbContext : DbContext
+public class AppDbContext : DbContext
 {
-    public const string OptionsName = nameof(AppDbContext);
+    public const string SectionName = nameof(AppDbContext);
 
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
     {
     }
 
-    public DbSet<Product> Products { get; set; } = default!;
+    public virtual DbSet<Product> Products { get; set; } = default!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

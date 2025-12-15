@@ -1,6 +1,6 @@
 namespace Data.Entities;
 
-public sealed class Product
+public sealed class Product : IEntity<Guid>
 {
     public Guid Id { get; set; }
 
