@@ -15,7 +15,7 @@ internal sealed class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOpti
         {
             var info = new OpenApiInfo
             {
-                Title = "Alza Products API",
+                Title = "Product Catalog API",
                 Version = description.ApiVersion.ToString(),
                 Description = description.IsDeprecated ? "This API version has been deprecated." : string.Empty
             };

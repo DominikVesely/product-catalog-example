@@ -1,4 +1,4 @@
-# Product Catalog & Inventory API
+# Product Catalog API
 This RESTful API provides the complete toolkit for managing and retrieving your product catalog data.
 
 ## Startup
