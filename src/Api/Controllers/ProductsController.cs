@@ -1,4 +1,5 @@
-﻿using Api.Contracts.Requests;
+﻿using Api.Classes;
+using Api.Contracts.Requests;
 using Api.Controllers.Base;
 using Asp.Versioning;
 using Business.Dto;
@@ -9,6 +10,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Api.Controllers;
 
+/// <summary>
+/// Defines a controller that provides API endpoints for retrieving and updating product information.
+/// </summary>
 [ApiVersion(1.0)]
 public class ProductsController : ApiController
 {
@@ -19,7 +23,9 @@ public class ProductsController : ApiController
         _productService = productService ?? throw new ArgumentNullException(nameof(productService));
     }
 
-    // v1: return all available products (no pagination)
+    /// <summary>
+    /// Retrieves a list of all products.
+    /// </summary>
     [HttpGet]
     public async Task<ActionResult<List<ProductDto>>> GetAllV1()
     {
@@ -27,6 +33,9 @@ public class ProductsController : ApiController
         return Ok(data);
     }
 
+    /// <summary>
+    /// Retrieves a paginated list of products using API version 2.0.
+    /// </summary>
     [HttpGet]
     [ApiVersion(2.0)]
     public async Task<ActionResult<List<ProductDto>>> GetAllV2([FromQuery][Required] PaginationDto pagination)
@@ -35,8 +44,14 @@ public class ProductsController : ApiController
         return Ok(data);
     }
 
+    /// <summary>
+    /// Retrieves the product with the specified unique identifier.
+    /// </summary>
+    /// <param name="id">The unique identifier of the product to retrieve.</param>
     [HttpGet]
     [Route("{id:guid}")]
+    [ProducesResponseType(typeof(ProductDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(DefaultProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<ProductDto>> GetById(Guid id, CancellationToken cancellationToken)
     {
         ProductDto? product = await _productService.GetById(id, cancellationToken);
@@ -49,8 +64,15 @@ public class ProductsController : ApiController
         return Ok(product);
     }
 
+    /// <summary>
+    /// Updates the description of the specified product.
+    /// </summary>
+    /// <param name="id">The unique identifier of the product to update.</param>
+    /// <param name="request">The request containing the new product description. Cannot be null.</param>
     [HttpPatch]
     [Route("{id:guid}/description")]
+    [ProducesResponseType(typeof(ProductDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(DefaultProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<ProductDto>> UpdateDescription(Guid id, [FromBody][Required] UpdateProductDescriptionRequest request)
     {
         var product = await _productService.UpdateDescription(id, request.Description, HttpContext.RequestAborted);

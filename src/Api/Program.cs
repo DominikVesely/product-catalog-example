@@ -1,3 +1,4 @@
+using Api.Classes;
 using Api.Handlers;
 using Asp.Versioning.ApiExplorer;
 using Business.Configuration;
@@ -6,8 +7,8 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Diagnostics;
 using System.Net.Mime;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,19 +21,30 @@ builder.Services.AddControllers(options =>
     options.ReturnHttpNotAcceptable = true;
 });
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    // Configure the XML comment inclusion
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+});
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
 builder.Services.AddProblemDetails(options =>
 {
     options.CustomizeProblemDetails = context =>
     {
-        context.ProblemDetails.Instance =
-            $"{context.HttpContext.Request.Method} {context.HttpContext.Request.Path}";
-        context.ProblemDetails.Extensions.TryAdd("requestId", context.HttpContext.TraceIdentifier);
+        var customDetails = new DefaultProblemDetails
+        {
+            Status = context.ProblemDetails.Status,
+            Title = context.ProblemDetails.Title,
+            Detail = context.ProblemDetails.Detail,
+            Instance = $"{context.HttpContext.Request.Method} {context.HttpContext.Request.Path}",
 
-        Activity? activity = context.HttpContext.Features.Get<IHttpActivityFeature>()?.Activity;
-        context.ProblemDetails.Extensions.TryAdd("traceId", activity?.Id);
+            RequestId = context.HttpContext.TraceIdentifier,
+            TraceId = context.HttpContext.Features.Get<IHttpActivityFeature>()?.Activity?.Id
+        };
+
+        context.ProblemDetails = customDetails;
     };
 });
 builder.Services.AddExceptionHandler<ExceptionHandler>();
