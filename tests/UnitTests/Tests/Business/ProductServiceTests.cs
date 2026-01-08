@@ -6,6 +6,7 @@ using Data.Dto;
 using Data.Entities;
 using Data.Repositories;
 using FluentAssertions;
+using Microsoft.Extensions.Logging.Abstractions;
 using NSubstitute;
 
 namespace UnitTests.Tests.Business;
@@ -18,7 +19,7 @@ public class ProductServiceTests
     public ProductServiceTests()
     {
         _repositorySub = Substitute.For<IProductRepository>();
-        _sut = new ProductService(_repositorySub, new ProductMapper());
+        _sut = new ProductService(_repositorySub, new ProductMapper(), NullLogger<ProductService>.Instance);
     }
 
     public static TheoryData<Guid, string?, string?, string?> UpdateSuccessTestData => new()
@@ -127,7 +128,7 @@ public class ProductServiceTests
 
         // act
         var result = await _sut.GetById(id, CancellationToken.None);
-    
+
         // assert
         result.Should().BeNull();
     }
